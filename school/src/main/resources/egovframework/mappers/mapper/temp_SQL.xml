@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.let.temp.service.impl.TempMapper">
+
+<resultMap type="Temp" id="temp" autoMapping="true">
+	<id column="TEMP_ID" property="tempId"/>
+	<id column="TEMP_VAL" property="tempVal"/>
+</resultMap>
+
+<select id="selectTemp"  resultMap="temp">
+	select 
+		TEMP_ID
+		, TEMP_VAL
+	from LETTEMP2
+	WHERE TEMP_ID = #{tempId}
+</select>
+
+<insert id="insertTemp" parameterType="egovframework.let.temp.service.TempVO">
+	INSERT INTO lettemp2(
+		TEMP_ID
+		,TEMP_VAL
+	) VALUES(
+		#{tempId}
+		,#{tempVal}
+	)
+</insert>
+
+<select id="selectTemplist" resultType="EgovMap">
+	SELECT TEMP_ID, TEMP_VAL FROM lettemp2 LIMIT #{recordCountPerPage} #{firstIndex}
+</select>
+
+<select id="selectTemplistCnt" resultType="java.lang.Integer">
+	SELECT COUNT(*) CNT FROM lettemp2
+</select>
+
+<update id="updateTemp" parameterType="egovframework.let.temp.service.TempVO">
+	UPDATE lettemp2 SET TEMP_VAL =#{tempVal} WHERE TEMP_ID =#{tempId}
+</update>
+
+<delete id="deleteTemp" parameterType="egovframework.let.temp.service.TempVO">
+	DELETE FROM lettemp2 WHERE TEMP_ID =#{tempId}
+</delete>
+<!-- <select id="list" resultMap="temp">
+	select 
+		TEMP_ID
+		, TEMP_VAL
+	from LETTEMP2
+</select>
+ -->
+
+</mapper>
